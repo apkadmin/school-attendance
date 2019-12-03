@@ -1,31 +1,75 @@
-package com.vinid.attendance.modal;
+package com.vinid.attendance.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.vinid.attendance.entity.Subject;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 
 @Table(name = "teachers")
 public class Teacher {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
+
+    @Max(value = 50,message = "name max length 50")
+    @Column(name = "first_name")
     private String first_name;
+
+    @Max(value = 50,message = "name max length 50")
+    @Column(name = "last_name")
     private String last_name;
+
+    @Column(name="department")
     private String department;
+
+    @Column(name = "regency")
     private String regency;
+
+    @Column(name = "date_of_birth")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private String date_of_birth;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name="city")
     private String city;
+
+    @Column(name="district")
     private String district;
-    private String create_at;
-    private String update_at;
+
+    @Column(name="create_at")
+    private Date create_at;
+
+    @Column(name="update_at")
+    private Date update_at;
+
+    @Max(value = 12,message = "the phone is max length 12")
+    @Min(value = 8, message = "the phone is min length 8")
+    @Column(name = "telephone")
     private String telephone;
+
+    @Column(name = "email")
+    @Email
     private String email;
+
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private Set<Subject> subjects;
+
 
     public Teacher() {
     }
 
-    public Teacher(String id, String first_name, String last_name, String department, String regency, String date_of_birth, String country, String city, String district, String create_at, String update_at, String telephone, String email) {
-        this.id = id;
+    public Teacher(String first_name, String last_name, String department, String regency, String date_of_birth, String country, String city, String district, Date create_at, Date update_at, @Max(value = 12, message = "the phone is max length 12") @Min(value = 8, message = "the phone is min length 8") String telephone, String email, Set<Subject> subjects) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.department = department;
@@ -38,13 +82,14 @@ public class Teacher {
         this.update_at = update_at;
         this.telephone = telephone;
         this.email = email;
+        this.subjects = subjects;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -112,19 +157,19 @@ public class Teacher {
         this.district = district;
     }
 
-    public String getCreate_at() {
+    public Date getCreate_at() {
         return create_at;
     }
 
-    public void setCreate_at(String create_at) {
+    public void setCreate_at(Date create_at) {
         this.create_at = create_at;
     }
 
-    public String getUpdate_at() {
+    public Date getUpdate_at() {
         return update_at;
     }
 
-    public void setUpdate_at(String update_at) {
+    public void setUpdate_at(Date update_at) {
         this.update_at = update_at;
     }
 
@@ -142,5 +187,13 @@ public class Teacher {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 }
