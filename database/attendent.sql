@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `attendance` (
-  `id` varchar(50) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `create_at` varchar(50) DEFAULT NULL,
   `scheule_id` varchar(50) DEFAULT NULL,
   `attendance_status` tinyint(1) DEFAULT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `attendance` (
 --
 
 CREATE TABLE `studentinclass` (
-  `id` varchar(50) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `student_id` varchar(50) DEFAULT NULL,
   `subject_id` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -60,7 +60,7 @@ CREATE TABLE `studentinclass` (
 --
 
 CREATE TABLE `students` (
-  `ma_sv` varchar(50) NOT NULL,
+  `ma_sv` bigint(20) NOT NULL,
   `first_name` text DEFAULT NULL,
   `last_name` text DEFAULT NULL,
   `sex` tinyint(1) DEFAULT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE `students` (
 --
 
 CREATE TABLE `subjects` (
-  `id` varchar(50) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` text DEFAULT NULL,
   `credit` int(11) DEFAULT NULL,
   `term` int(11) DEFAULT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE `subjects` (
 --
 
 CREATE TABLE `teachers` (
-  `id` varchar(50) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `first_name` text DEFAULT NULL,
   `last_name` text DEFAULT NULL,
   `department` text DEFAULT NULL,
@@ -123,10 +123,9 @@ CREATE TABLE `teachers` (
 --
 
 CREATE TABLE `users` (
-  `id` varchar(50) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
-  `role` varchar(20) DEFAULT NULL,
   `uid` varchar(50) DEFAULT NULL,
   `create_at` varchar(50) DEFAULT NULL,
   `update_at` varchar(50) DEFAULT NULL
@@ -135,6 +134,12 @@ CREATE TABLE `users` (
 --
 -- Indexes for dumped tables
 --
+CREATE TABLE 'roles' (
+  'id' bigint(20) NOT NULL AUTO_INCREMENT,
+  'description' varchar(255) DEFAULT NULL,
+  'role_name' varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for table `attendance`
